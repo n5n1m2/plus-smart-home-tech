@@ -34,6 +34,7 @@ public class HubService {
         SpecificRecord record = switch (hubEvent) {
             case DeviceAddedEvent e -> DeviceAddedEventAvro.newBuilder()
                     .setId(e.getId())
+                    .setType(DeviceTypeAvro.valueOf(e.getDeviceType().name()))
                     .build();
             case DeviceRemoveEvent e -> DeviceRemovedEventAvro.newBuilder()
                     .setId(e.getId())

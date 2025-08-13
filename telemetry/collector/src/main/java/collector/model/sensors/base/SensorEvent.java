@@ -12,7 +12,7 @@ import java.time.Instant;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
-        property = "sensorType",
+        property = "type",
         defaultImpl = SensorType.class)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = ClimateSensorEvent.class, name = "CLIMATE_SENSOR_EVENT"),

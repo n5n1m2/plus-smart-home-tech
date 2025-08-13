@@ -38,7 +38,7 @@ public class SensorEventService {
             case MotionSensorEvent e -> MotionSensorAvro.newBuilder()
                     .setMotion(e.getMotion())
                     .setLinkQuality(e.getLinkQuality())
-                    .setMotion(e.getMotion())
+                    .setVoltage(e.getVoltage())
                     .build();
             case SmartSwitchSensorEvent e -> SwitchSensorAvro.newBuilder()
                     .setState(e.getState())
