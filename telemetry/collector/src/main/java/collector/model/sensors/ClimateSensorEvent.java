@@ -3,6 +3,7 @@ package collector.model.sensors;
 import collector.model.sensors.base.SensorEvent;
 import collector.model.sensors.base.SensorType;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
