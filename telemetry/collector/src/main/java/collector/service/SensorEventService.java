@@ -23,6 +23,9 @@ public class SensorEventService {
         producer.send(new ProducerRecord<>(topic, avro.getId(), avro));
     }
 
+    public void sendToKafka(SensorEventAvro avro) {
+        producer.send(new ProducerRecord<>(topic, avro.getId(), avro));
+    }
 
     private SensorEventAvro getRecord(SensorEvent event) {
         SpecificRecord record = switch (event) {

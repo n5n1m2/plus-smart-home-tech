@@ -30,6 +30,10 @@ public class HubService {
         producer.send(new ProducerRecord<>(topic, event.getHubId(), event));
     }
 
+    public void sendToKafka(HubEventAvro event) {
+        producer.send(new ProducerRecord<>(topic, event.getHubId(), event));
+    }
+
     private HubEventAvro getRecord(BaseHubEvent hubEvent) {
         SpecificRecord record = switch (hubEvent) {
             case DeviceAddedEvent e -> DeviceAddedEventAvro.newBuilder()

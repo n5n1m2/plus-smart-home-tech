@@ -1,7 +1,7 @@
-package collector.controller;
+package collector.controller.http;
 
-import collector.model.sensors.base.SensorEvent;
-import collector.service.SensorEventService;
+import collector.model.hub.base.BaseHubEvent;
+import collector.service.HubService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,14 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/events/sensors")
-public class SensorsController {
-
-    private final SensorEventService service;
+@RequestMapping("/events/hubs")
+public class HubController {
+    private final HubService hubService;
 
     @PostMapping
-    public ResponseEntity<String> sendSensorInfo(@RequestBody @Valid SensorEvent event) {
-        service.sendToKafka(event);
+    public ResponseEntity<String> sendHubEvent(@RequestBody @Valid BaseHubEvent hubEvent) {
+        hubService.sendToKafka(hubEvent);
         return ResponseEntity.ok().build();
     }
 }
