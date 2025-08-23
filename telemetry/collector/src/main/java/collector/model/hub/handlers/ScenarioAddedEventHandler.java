@@ -34,6 +34,7 @@ public class ScenarioAddedEventHandler implements HubEventHandler {
                     };
                     return ScenarioConditionAvro.newBuilder()
                             .setValue(val)
+                            .setSensorId(obj.getSensorId())
                             .setOperation(ConditionOperationAvro.valueOf(obj.getOperation().name()))
                             .setType(ConditionTypeAvro.valueOf(obj.getType().name()))
                             .build();
