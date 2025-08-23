@@ -1,5 +1,6 @@
 package collector.controller.grpc;
 
+import collector.model.hub.handlers.HubEventHandler;
 import collector.model.sensors.handlers.SensorEventHandler;
 import com.google.protobuf.Empty;
 import io.grpc.Status;
@@ -18,12 +19,20 @@ import java.util.stream.Collectors;
 @GrpcService
 public class GrpcController extends CollectorControllerImplBase {
     private final Map<SensorEventProto.PayloadCase, SensorEventHandler> events;
+    private final Map<HubEventProto.PayloadCase, HubEventHandler> hubEvents;
 
-    public GrpcController(Set<SensorEventHandler> sensorEventHandlers) {
+    public GrpcController(Set<SensorEventHandler> sensorEventHandlers, Set<HubEventHandler> hubEventHandlers) {
         events = sensorEventHandlers.stream()
                 .collect(
                         Collectors.toMap(
                                 SensorEventHandler::getPayloadCase,
+                                Function.identity()
+                        )
+                );
+        hubEvents = hubEventHandlers.stream()
+                .collect(
+                        Collectors.toMap(
+                                HubEventHandler::getPayloadCase,
                                 Function.identity()
                         )
                 );
@@ -33,7 +42,7 @@ public class GrpcController extends CollectorControllerImplBase {
     public void collectSensorEvent(SensorEventProto request, StreamObserver<Empty> responseObserver) {
         try {
             if (events.containsKey(request.getPayloadCase())) {
-
+                events.get(request.getPayloadCase()).handle(request);
             } else {
                 throw new IllegalArgumentException("Unknown sensor event: " + request.getPayloadCase());
             }
@@ -52,6 +61,12 @@ public class GrpcController extends CollectorControllerImplBase {
     @Override
     public void collectHubEvent(HubEventProto request, StreamObserver<Empty> responseObserver) {
         try {
+            if (hubEvents.containsKey(request.getPayloadCase())) {
+                hubEvents.get(request.getPayloadCase()).handle(request);
+            } else {
+                throw new IllegalArgumentException("Unknown hub event: " + request.getPayloadCase());
+            }
+
             responseObserver.onNext(Empty.getDefaultInstance());
             responseObserver.onCompleted();
         } catch (Exception e) {
