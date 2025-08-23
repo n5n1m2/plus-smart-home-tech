@@ -9,6 +9,8 @@ import ru.yandex.practicum.kafka.telemetry.event.DeviceAddedEventAvro;
 import ru.yandex.practicum.kafka.telemetry.event.DeviceTypeAvro;
 import ru.yandex.practicum.kafka.telemetry.event.HubEventAvro;
 
+import java.time.Instant;
+
 @Component
 @RequiredArgsConstructor
 public class DeviceAddedEventHandler implements HubEventHandler {
@@ -31,7 +33,10 @@ public class DeviceAddedEventHandler implements HubEventHandler {
 
         service.sendToKafka(HubEventAvro.newBuilder()
                 .setHubId(hubEvent.getHubId())
-                .setTimestamp(hubEvent.getTimestamp().getNanos())
+                .setTimestamp(Instant.ofEpochSecond(
+                        hubEvent.getTimestamp().getSeconds(),
+                        hubEvent.getTimestamp().getNanos()
+                ).toEpochMilli())
                 .setPayload(avro)
                 .build());
     }

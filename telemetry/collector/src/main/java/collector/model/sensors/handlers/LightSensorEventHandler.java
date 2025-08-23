@@ -8,6 +8,8 @@ import ru.yandex.practicum.grpc.telemetry.event.SensorEventProto;
 import ru.yandex.practicum.kafka.telemetry.event.LightSensorAvro;
 import ru.yandex.practicum.kafka.telemetry.event.SensorEventAvro;
 
+import java.time.Instant;
+
 @Component
 @RequiredArgsConstructor
 public class LightSensorEventHandler implements SensorEventHandler {
@@ -31,7 +33,10 @@ public class LightSensorEventHandler implements SensorEventHandler {
         service.sendToKafka(SensorEventAvro.newBuilder()
                 .setId(event.getId())
                 .setHubId(event.getHubId())
-                .setTimestamp(event.getTimestamp().getNanos())
+                .setTimestamp(Instant.ofEpochSecond(
+                        event.getTimestamp().getSeconds(),
+                        event.getTimestamp().getNanos()
+                ).toEpochMilli())
                 .setPayload(avro)
                 .build()
         );

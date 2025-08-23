@@ -7,6 +7,7 @@ import ru.yandex.practicum.grpc.telemetry.event.HubEventProto;
 import ru.yandex.practicum.grpc.telemetry.event.ScenarioAddedEventProto;
 import ru.yandex.practicum.kafka.telemetry.event.*;
 
+import java.time.Instant;
 import java.util.List;
 
 @Component
@@ -57,7 +58,10 @@ public class ScenarioAddedEventHandler implements HubEventHandler {
 
         hubService.sendToKafka(HubEventAvro.newBuilder()
                 .setHubId(hubEvent.getHubId())
-                .setTimestamp(hubEvent.getTimestamp().getNanos())
+                .setTimestamp(Instant.ofEpochSecond(
+                        hubEvent.getTimestamp().getSeconds(),
+                        hubEvent.getTimestamp().getNanos()
+                ).toEpochMilli())
                 .setPayload(avro)
                 .build());
 

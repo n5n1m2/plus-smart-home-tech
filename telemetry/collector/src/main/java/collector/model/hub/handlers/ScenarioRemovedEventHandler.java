@@ -8,6 +8,8 @@ import ru.yandex.practicum.grpc.telemetry.event.ScenarioRemovedEventProto;
 import ru.yandex.practicum.kafka.telemetry.event.HubEventAvro;
 import ru.yandex.practicum.kafka.telemetry.event.ScenarioRemovedEventAvro;
 
+import java.time.Instant;
+
 @Component
 @RequiredArgsConstructor
 public class ScenarioRemovedEventHandler implements HubEventHandler {
@@ -29,7 +31,10 @@ public class ScenarioRemovedEventHandler implements HubEventHandler {
 
         service.sendToKafka(HubEventAvro.newBuilder()
                 .setHubId(hubEvent.getHubId())
-                .setTimestamp(hubEvent.getTimestamp().getNanos())
+                .setTimestamp(Instant.ofEpochSecond(
+                        hubEvent.getTimestamp().getSeconds(),
+                        hubEvent.getTimestamp().getNanos()
+                ).toEpochMilli())
                 .setPayload(avro)
                 .build());
     }
