@@ -19,7 +19,7 @@ public class AggregationStarter {
 
     private final Consumer<String, SensorEventAvro> consumer;
     private final AggregatorService service;
-    @Value("${topic.sensor}")
+    @Value("${kafka.topic.sensor}")
     private String topic;
 
     public void start() {

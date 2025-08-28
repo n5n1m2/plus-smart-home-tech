@@ -12,7 +12,7 @@ import ru.yandex.practicum.kafka.telemetry.event.SensorEventAvro;
 @RequiredArgsConstructor
 public class SensorEventService {
     private final Producer<String, SpecificRecordBase> producer;
-    @Value("${topic.sensor}")
+    @Value("${kafka.topic.sensor}")
     private String topic;
 
     public void sendToKafka(SensorEventAvro avro) {
