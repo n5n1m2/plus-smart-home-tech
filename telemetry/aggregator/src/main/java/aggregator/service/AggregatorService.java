@@ -25,7 +25,7 @@ public class AggregatorService {
     private final Producer producer;
     private final Map<String, SensorsSnapshotAvro> sensorsSnapshotAvroMap = new HashMap<>();
     private final Map<TopicPartition, OffsetAndMetadata> offsets = new HashMap<>();
-    @Value("$telemetry.snapshots.v1")
+    @Value("telemetry.snapshots.v1")
     private String topic;
     private final Consumer<String, SensorEventAvro> consumer;
 
