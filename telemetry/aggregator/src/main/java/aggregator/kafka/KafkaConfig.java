@@ -20,7 +20,7 @@ import java.util.Properties;
 public class KafkaConfig {
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
-    @Value("${group.id}")
+    @Value("${kafka.group.id}")
     private String groupId;
 
     @Bean

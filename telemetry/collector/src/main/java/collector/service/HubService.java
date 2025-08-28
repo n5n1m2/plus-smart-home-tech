@@ -14,7 +14,7 @@ public class HubService {
 
     private final Producer<String, SpecificRecordBase> producer;
 
-    @Value("${topic.hubs}")
+    @Value("${kafka.topic.hubs}")
     private String topic;
 
     public void sendToKafka(HubEventAvro event) {
