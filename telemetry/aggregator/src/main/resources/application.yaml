@@ -11,17 +11,14 @@ logging:
     org.slf4j: DEBUG
     ru.practicum: DEBUG
 
-server:
-  port: 8082
-
 aggregator:
   kafka:
     consumer:
-      bootstrap-servers: localhost:9092
-      group-id: sensor-aggregator
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: aggregator.kafka.SensorEventDeserializer
+      bootstrap.servers: localhost:9092
+      group.id: sensor-aggregator
+      key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value.deserializer: aggregator.kafka.SensorEventDeserializer
     producer:
-      bootstrap-servers: localhost:9092
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: aggregator.kafka.AvroSerializer
+      bootstrap.servers: localhost:9092
+      key.serializer: org.apache.kafka.common.serialization.StringSerializer
+      value.serializer: aggregator.kafka.AvroSerializer
