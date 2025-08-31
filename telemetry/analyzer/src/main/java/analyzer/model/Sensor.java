@@ -14,7 +14,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Sensor {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     @Column(name = "hub_id")
     private String hubId;

@@ -59,8 +59,8 @@ public class HubEventProcessor implements Runnable {
             }
         } catch (WakeupException e) {
             log.error("Wakeup exception", e);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+//        } catch (Exception e) {
+//            throw new RuntimeException(e.getMessage());
         } finally {
             consumer.commitSync(offsets);
             consumer.close();
@@ -70,6 +70,7 @@ public class HubEventProcessor implements Runnable {
     @Transactional
     protected void process(HubEventAvro hubEventAvro) {
         Object payload = hubEventAvro.getPayload();
+        System.out.println(hubEventAvro + "\n\n\n");
         BaseHubEventHandler<Object> handler = (BaseHubEventHandler<Object>) handlers.get(payload.getClass());
         if (handler == null) {
             log.error("No handler found for type {}", payload.getClass());
