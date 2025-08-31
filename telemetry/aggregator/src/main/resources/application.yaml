@@ -1,6 +1,8 @@
 spring:
+  main:
+    web-application-type: none
   kafka:
-    client-id: collector-service
+    client-id: aggregator-service
 
 logging:
   level:
@@ -8,9 +10,6 @@ logging:
     org.springframework.http: TRACE
     org.slf4j: DEBUG
     ru.practicum: DEBUG
-
-server:
-  port: 8082
 
 aggregator:
   kafka:
@@ -23,4 +22,3 @@ aggregator:
       bootstrap.servers: localhost:9092
       key.serializer: org.apache.kafka.common.serialization.StringSerializer
       value.serializer: aggregator.kafka.AvroSerializer
-
