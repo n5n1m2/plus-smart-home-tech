@@ -6,6 +6,6 @@ spring:
         useRandomPolicy: true
         max-interval: 6000
   application:
-    name: aggregator
+    name: collector
   config:
     import: configserver:http://localhost:8888
