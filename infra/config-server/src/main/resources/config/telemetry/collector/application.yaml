@@ -1,0 +1,20 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    client-id: collector-service
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.http: TRACE
+    org.slf4j: DEBUG
+    ru.practicum: DEBUG
+
+kafka:
+  topic:
+    sensor: telemetry.sensors.v1
+    hubs: telemetry.hubs.v1
+
+grpc:
+  server:
+    port: 59091
