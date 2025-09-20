@@ -30,7 +30,6 @@ public class CartServiceImpl implements CartService {
 
     @Transactional
     @Override
-    @CircuitBreaker(name = "warehouse", fallbackMethod = "addProductFailBack")
     public CartDto addProductToCart(String name, Map<UUID, Long> products) {
         Cart cart = findExistingCart(name);
         if (cart.getState() == ShoppingCartState.DEACTIVATED) {
@@ -82,14 +81,6 @@ public class CartServiceImpl implements CartService {
         }
         cart.setState(ShoppingCartState.DEACTIVATED);
         repository.save(cart);
-    }
-
-    public CartDto addProductFailBack(String name, Map<UUID, Long> products, Throwable ex) {
-        Cart cart = repository.findByUsername(name).orElseGet(() -> null);
-        if (cart != null) {
-            return new CartDto(cart.getShoppingCartId(), cart.getProducts());
-        }
-        return new CartDto(null, null);
     }
 
     private Cart findExistingCart(String username) {
