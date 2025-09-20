@@ -1,15 +1,14 @@
 package cart.service;
 
-import interaction.client.WarehouseFeignClient;
-import interaction.model.cart.CartDto;
-import interaction.model.cart.ChangeProductQuantityRequest;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import cart.model.Cart;
 import cart.model.ShoppingCartState;
 import cart.repository.ShoppingCartRepository;
+import interaction.client.WarehouseFeignClient;
+import interaction.model.cart.CartDto;
+import interaction.model.cart.ChangeProductQuantityRequest;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
