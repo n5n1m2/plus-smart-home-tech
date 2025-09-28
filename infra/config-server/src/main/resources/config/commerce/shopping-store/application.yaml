@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/store
+    username: name
+    password: password
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      mode: always
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.http: TRACE
+    org.slf4j: DEBUG
+    ru.practicum: DEBUG
