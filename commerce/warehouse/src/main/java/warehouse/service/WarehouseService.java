@@ -1,10 +1,8 @@
 package warehouse.service;
 
+import interaction.model.delivery.AddressDto;
 import interaction.model.cart.CartDto;
-import interaction.model.warehouse.AddProductToWarehouseRequest;
-import interaction.model.warehouse.AddressDto;
-import interaction.model.warehouse.BookedProductDto;
-import interaction.model.warehouse.NewProductRequest;
+import interaction.model.warehouse.*;
 
 public interface WarehouseService {
     void addNewProduct(NewProductRequest request);
@@ -14,4 +12,10 @@ public interface WarehouseService {
     BookedProductDto bookProduct(CartDto cart);
 
     AddressDto getCurrentAddress();
+
+    BookedProductDto assembleProducts(AssemblyRequest request);
+
+    void markAsShipped(ShipmentRequest request);
+
+    void returnProducts(ReturnRequest request);
 }

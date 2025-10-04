@@ -41,5 +41,5 @@ public class Product {
     private ProductCategory productCategory;
 
     @Column
-    private Float price;
+    private Double price;
 }

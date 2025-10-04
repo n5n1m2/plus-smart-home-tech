@@ -1,16 +1,11 @@
 package warehouse.controller;
 
 import interaction.client.WarehouseFeignClient;
+import interaction.model.delivery.AddressDto;
 import interaction.model.cart.CartDto;
-import interaction.model.warehouse.AddProductToWarehouseRequest;
-import interaction.model.warehouse.AddressDto;
-import interaction.model.warehouse.BookedProductDto;
-import interaction.model.warehouse.NewProductRequest;
+import interaction.model.warehouse.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import warehouse.service.WarehouseService;
 
 @RestController
@@ -38,5 +33,23 @@ public class WarehouseController implements WarehouseFeignClient {
     @Override
     public AddressDto getWarehouseAddress() {
         return service.getCurrentAddress();
+    }
+
+    @Override
+    @PostMapping("/assembly")
+    public BookedProductDto assemblyProductForOrderFromShoppingCart(@RequestBody AssemblyRequest request) {
+        return service.assembleProducts(request);
+    }
+
+    @Override
+    @PostMapping("/shipped")
+    public void shippedToDelivery(@RequestBody ShipmentRequest request) {
+        service.markAsShipped(request);
+    }
+
+    @Override
+    @PostMapping("/return")
+    public void returnProducts(@RequestBody ReturnRequest request) {
+        service.returnProducts(request);
     }
 }

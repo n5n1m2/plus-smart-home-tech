@@ -1,10 +1,8 @@
 package interaction.client;
 
+import interaction.model.delivery.AddressDto;
 import interaction.model.cart.CartDto;
-import interaction.model.warehouse.AddProductToWarehouseRequest;
-import interaction.model.warehouse.AddressDto;
-import interaction.model.warehouse.BookedProductDto;
-import interaction.model.warehouse.NewProductRequest;
+import interaction.model.warehouse.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,4 +23,13 @@ public interface WarehouseFeignClient {
 
     @GetMapping("/address")
     AddressDto getWarehouseAddress();
+
+    @PostMapping("/assembly")
+    BookedProductDto assemblyProductForOrderFromShoppingCart(@RequestBody AssemblyRequest request);
+
+    @PostMapping("/shipped")
+    void shippedToDelivery(@RequestBody ShipmentRequest request);
+
+    @PostMapping("/return")
+    void returnProducts(@RequestBody ReturnRequest request);
 }

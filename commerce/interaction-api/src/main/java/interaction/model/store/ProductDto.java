@@ -21,5 +21,5 @@ public class ProductDto {
     private QuantityState quantityState;
     private ProductState productState;
     private ProductCategory productCategory;
-    private Float price;
+    private Double price;
 }
