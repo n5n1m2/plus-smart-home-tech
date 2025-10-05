@@ -1,10 +1,8 @@
 package interaction.client;
 
+import interaction.model.delivery.AddressDto;
 import interaction.model.cart.CartDto;
-import interaction.model.warehouse.AddProductToWarehouseRequest;
-import interaction.model.warehouse.AddressDto;
-import interaction.model.warehouse.BookedProductDto;
-import interaction.model.warehouse.NewProductRequest;
+import interaction.model.warehouse.*;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -33,6 +31,21 @@ public class WarehouseClientFallbackFactory implements FallbackFactory<Warehouse
 
             @Override
             public AddressDto getWarehouseAddress() {
+                throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Warehouse temporarily unavailable. Please try again later.");
+            }
+
+            @Override
+            public BookedProductDto assemblyProductForOrderFromShoppingCart(AssemblyRequest request) {
+                throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Warehouse temporarily unavailable. Please try again later.");
+            }
+
+            @Override
+            public void shippedToDelivery(ShipmentRequest request) {
+                throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Warehouse temporarily unavailable. Please try again later.");
+            }
+
+            @Override
+            public void returnProducts(ReturnRequest request) {
                 throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Warehouse temporarily unavailable. Please try again later.");
             }
         };
